@@ -21,7 +21,7 @@ const Header = ({ siteLogo }) => {
   return (
     <header
       style={{
-        background: colorMode === "light" ? "white" : "#0d0d18",
+        // background: colorMode === "light" ? "white" : "#0d0d18",
         color: colorMode === "light" ? "#0d0d18" : "white",
         marginBottom: `1.45rem`,
       }}
