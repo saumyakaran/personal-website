@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 import React from "react"
 import Img from "gatsby-image"
 
-import { useColorMode, Heading, IconButton, Flex } from "@chakra-ui/core"
+import { useColorMode, IconButton, Flex, Icon } from "@chakra-ui/core"
 
 const Header = ({ siteLogo }) => {
   const data = useStaticQuery(graphql`
@@ -26,7 +26,7 @@ const Header = ({ siteLogo }) => {
         marginBottom: `1.45rem`,
       }}
     >
-      <Flex justifyContent="space-between" pt={4} px={4}>
+      <Flex justifyContent="space-between" alignItems="center" pt={4} px={4}>
         <Link to="/">
           <Img
             fixed={
@@ -36,9 +36,10 @@ const Header = ({ siteLogo }) => {
             placeholderStyle={{ opacity: 0 }}
           />
         </Link>
-        <IconButton
-          icon={colorMode === "light" ? "moon" : "sun"}
+        <Icon
+          name={colorMode === "light" ? "moon" : "sun"}
           onClick={toggleColorMode}
+          cursor="pointer"
         />
       </Flex>
     </header>
