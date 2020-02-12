@@ -94,73 +94,65 @@ const PostDate = styled("div")`
 
 const Post = ({ post, meta }) => {
     return (
-        <>
-            <Helmet
-                title={`${post.post_title[0].text} | Prist, Gatsby & Prismic Starter`}
-                titleTemplate={`%s | ${meta.title}`}
-                meta={[
-                    {
-                        name: `description`,
-                        content: meta.description,
-                    },
-                    {
-                        property: `og:title`,
-                        content: `${post.post_title[0].text} | Prist, Gatsby & Prismic Starter`,
-                    },
-                    {
-                        property: `og:description`,
-                        content: meta.description,
-                    },
-                    {
-                        property: `og:type`,
-                        content: `website`,
-                    },
-                    {
-                        name: `twitter:card`,
-                        content: `summary`,
-                    },
-                    {
-                        name: `twitter:creator`,
-                        content: meta.author,
-                    },
-                    {
-                        name: `twitter:title`,
-                        content: meta.title,
-                    },
-                    {
-                        name: `twitter:description`,
-                        content: meta.description,
-                    },
-                ].concat(meta)}
-            />
-            <Layout>
-                <PostCategory>
-                    {RichText.render(post.post_category)}
-                </PostCategory>
-                <PostTitle>
-                    {RichText.render(post.post_title)}
-                </PostTitle>
-                <PostMetas>
-                    <PostAuthor>
-                        {post.post_author}
-                    </PostAuthor>
-                    <PostDate>
-                        <Moment format="MMMM D, YYYY">{post.post_date}</Moment>
-                    </PostDate>
-                </PostMetas>
-                    {post.post_hero_image && (
-                    <PostHeroContainer>
-                        <img src={post.post_hero_image.url} alt="bees" />
-                        <PostHeroAnnotation>
-                            {RichText.render(post.post_hero_annotation)}
-                        </PostHeroAnnotation>
-                    </PostHeroContainer>
-                )}
-                <PostBody>
-                    {RichText.render(post.post_body)}
-                </PostBody>
-            </Layout>
-        </>
+      <>
+        <Helmet
+          title={`${post.post_title[0].text} | Blog | An evolving collection of the thoughts and beliefs of Saumya Karan`}
+          titleTemplate={`%s | ${meta.title}`}
+          meta={[
+            {
+              name: `description`,
+              content: meta.description,
+            },
+            {
+              property: `og:title`,
+              content: `${post.post_title[0].text} | Blog | An evolving collection of the thoughts and beliefs of Saumya Karan`,
+            },
+            {
+              property: `og:description`,
+              content: meta.description,
+            },
+            {
+              property: `og:type`,
+              content: `website`,
+            },
+            {
+              name: `twitter:card`,
+              content: `summary`,
+            },
+            {
+              name: `twitter:creator`,
+              content: meta.author,
+            },
+            {
+              name: `twitter:title`,
+              content: meta.title,
+            },
+            {
+              name: `twitter:description`,
+              content: meta.description,
+            },
+          ].concat(meta)}
+        />
+        <Layout>
+          <PostCategory>{RichText.render(post.post_category)}</PostCategory>
+          <PostTitle>{RichText.render(post.post_title)}</PostTitle>
+          <PostMetas>
+            <PostAuthor>{post.post_author}</PostAuthor>
+            <PostDate>
+              <Moment format="MMMM D, YYYY">{post.post_date}</Moment>
+            </PostDate>
+          </PostMetas>
+          {post.post_hero_image && (
+            <PostHeroContainer>
+              <img src={post.post_hero_image.url} alt="bees" />
+              <PostHeroAnnotation>
+                {RichText.render(post.post_hero_annotation)}
+              </PostHeroAnnotation>
+            </PostHeroContainer>
+          )}
+          <PostBody>{RichText.render(post.post_body)}</PostBody>
+        </Layout>
+      </>
     )
 }
 
