@@ -7,6 +7,7 @@ import { RichText } from "prismic-reactjs";
 import styled from "@emotion/styled";
 import colors from "styles/colors";
 import Layout from "components/Layout";
+import { DiscussionEmbed } from "disqus-react";
 
 const PostHeroContainer = styled("div")`
     max-height: 500px;
@@ -62,6 +63,7 @@ const PostTitle = styled("div")`
 const PostBody = styled("div")`
     max-width: 550px;
     margin: 0 auto;
+    padding-bottom: 3.75em;
 
     .block-img {
         margin-top: 3.5em;
@@ -151,6 +153,14 @@ const Post = ({ post, meta }) => {
             </PostHeroContainer>
           )}
           <PostBody>{RichText.render(post.post_body)}</PostBody>
+          <DiscussionEmbed
+            shortname='saumyakaran'
+            config={{
+                  url: post.post_url,
+                  identifier: post.post_uid,
+                  title: post.post_title[0].text,
+              }}
+          />
         </Layout>
       </>
     )
