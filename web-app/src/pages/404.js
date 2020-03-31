@@ -1,16 +1,15 @@
-import React from "react"
-
-import Layout from "../components/layout"
-import SEO from "../components/seo"
-
-import { Heading, Text } from "@chakra-ui/core"
+import React from "react";
+import Layout from "components/Layout";
+import panda from "images/404.gif"
 
 const NotFoundPage = () => (
   <Layout>
-    <SEO title="404: Not found" />
-    <Heading as="h1" size="2xl">NOT FOUND</Heading>
-    <Text>You just hit a route that doesn&#39;t exist... the despair.</Text>
+    <div style={{textAlign: "center"}}>
+      <img src={panda} alt="Oh No!" />
+      <h1>OH NO!</h1>
+      <p>You just hit a route that doesn&#39;t exist... the despair.</p>
+    </div>
   </Layout>
 )
 
-export default NotFoundPage
+export default NotFoundPage;

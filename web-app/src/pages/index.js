@@ -1,123 +1,252 @@
-import React from "react"
-import { useStaticQuery, graphql } from "gatsby"
-import Img from "gatsby-image"
+import React from "react";
+import PropTypes from "prop-types";
+import Helmet from "react-helmet";
+import { RichText } from "prismic-reactjs";
+import { graphql, Link } from "gatsby";
+import styled from "@emotion/styled";
+import colors from "styles/colors";
+import dimensions from "styles/dimensions";
+import Button from "components/_ui/Button";
+import About from "components/About";
+import Layout from "components/Layout";
+import ProjectCard from "components/ProjectCard";
 
-import Layout from "../components/layout"
-import SEO from "../components/seo"
+const Hero = styled("div")`
+    padding-top: 2.5em;
+    padding-bottom: 3em;
+    margin-bottom: 6em;
+    max-width: 830px;
 
-import { motion } from "framer-motion"
-import { GoMarkGithub } from "react-icons/go"
-import { FaLinkedin } from "react-icons/fa"
-import { Heading, Text, Link, Box, Flex } from "@chakra-ui/core"
-
-const IndexPage = () => {
-  const delay = 0.5
-  const data = useStaticQuery(graphql`
-    query {
-      file(relativePath: { eq: "SaumyaKaranBW.png" }) {
-        childImageSharp {
-          # Specify a fixed image and fragment.
-          # The default width is 400 pixels
-          fluid {
-            ...GatsbyImageSharpFluid
-          }
-        }
-      }
+    @media(max-width:${dimensions.maxwidthMobile}px) {
+       margin-bottom: 3em;
     }
-  `)
-  return (
-    <Layout>
-      <SEO title="Home" />
-      <Box textAlign="center" width="50%" maxWidth={250} mx="auto" mt={8}>
-        <motion.span
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: delay }}
-        >
-          <Img
-            fluid={data.file.childImageSharp.fluid}
-            alt="Saumya Karan"
-            placeholderStyle={{ opacity: 0 }}
-            imgStyle={{ borderRadius: "16rem" }}
-          />
-        </motion.span>
-      </Box>
-      <Heading as="h1" size="2xl" textAlign="center" mt={8}>
-        <motion.h1
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: delay + 0.75 }}
-        >
-          Hello!
-        </motion.h1>
-      </Heading>
-      <Heading
-        as="h3"
-        size="lg"
-        mb={8}
-        fontWeight="400"
-        textAlign="center"
-        fontFamily="Caviar Dreams, sans-serif"
-        fontStyle="italic"
-      >
-        <motion.h3
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: delay + 2.5 }}
-        >
-          I am Saumya Karan
-        </motion.h3>
-      </Heading>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: delay + 3.75 }}
-      >
-        <Text textAlign="center" fontWeight={300} px={8}>
-          I am a Problem Solver, currently associated with{" "}
-          <Link
-            href="https://www.thevantageproject.com/"
-            isExternal
-            textDecoration="underline"
-          >
-            The Vantage Project
-          </Link>{" "}
-          as a Design Lead, spending mindspace in solving UX problems in
-          decentralized economic networks.
-        </Text>
-      </motion.div>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: delay + 4.75 }}
-      >
-        <Heading mt={16} mb={4} as="h4" size="md" textAlign="center">
-          Connect with me on
-        </Heading>
-        <Flex justifyContent="space-around" maxWidth="96px" mx="auto">
-          <motion.span
-            transition={{ delay: 0 }}
-            whileHover={{ scale: 1.2 }}
-            whileTap={{ scale: 0.8 }}
-          >
-            <Link href="https://github.com/saumyakaran/" isExternal>
-              <Box as={GoMarkGithub} size={8} />
-            </Link>
-          </motion.span>
 
-          <motion.span
-            transition={{ delay: 0 }}
-            whileHover={{ scale: 1.2 }}
-            whileTap={{ scale: 0.8 }}
-          >
-            <Link href="https://www.linkedin.com/in/skrn/" isExternal>
-              <Box as={FaLinkedin} size={8} />
-            </Link>
-          </motion.span>
-        </Flex>
-      </motion.div>
-    </Layout>
-  )
+    h1 {
+        margin-bottom: 1em;
+
+        a {
+            text-decoration: none;
+            transition: all 100ms ease-in-out;
+
+            &:nth-of-type(1) { color: ${colors.blue500}; }
+            &:nth-of-type(2) { color: ${colors.orange500}; }
+            &:nth-of-type(3) { color: ${colors.purple500}; }
+            &:nth-of-type(4) { color: ${colors.green500}; }
+            &:nth-of-type(5) { color: ${colors.teal500}; }
+
+            &:hover {
+                cursor: pointer;
+                transition: all 100ms ease-in-out;
+
+                &:nth-of-type(1) { color: ${colors.blue600};    background-color: ${colors.blue200};}
+                &:nth-of-type(2) { color: ${colors.orange600};  background-color: ${colors.orange200};}
+                &:nth-of-type(3) { color: ${colors.purple600};  background-color: ${colors.purple200};}
+                &:nth-of-type(4) { color: ${colors.green600};   background-color: ${colors.green200};}
+                &:nth-of-type(5) { color: ${colors.teal600};    background-color: ${colors.teal200};}
+
+            }
+        }
+    }
+`
+
+const Section = styled("div")`
+    margin-bottom: 10em;
+    display: flex;
+    flex-direction: column;
+
+    @media(max-width:${dimensions.maxwidthTablet}px) {
+        margin-bottom: 4em;
+    }
+
+    &:last-of-type {
+        margin-bottom: 0;
+    }
+`
+
+const WorkAction = styled(Link)`
+    font-weight: 600;
+    text-decoration: none;
+    color: currentColor;
+    transition: all 150ms ease-in-out;
+    margin-left: auto;
+
+    @media(max-width:${dimensions.maxwidthTablet}px) {
+       margin: 0 auto;
+    }
+
+    span {
+        margin-left: 1em;
+        transform: translateX(-8px);
+        display: inline-block;
+        transition: transform 400ms ease-in-out;
+    }
+
+    &:hover {
+        color: ${colors.blue500};
+        transition: all 150ms ease-in-out;
+
+        span {
+            transform: translateX(0px);
+            opacity: 1;
+            transition: transform 150ms ease-in-out;
+        }
+    }
+`
+
+const RenderBody = ({ home, posts, projects, meta }) => (
+  <>
+    <Helmet
+      title={meta.title}
+      titleTemplate={`%s | ${meta.title}`}
+      meta={[
+        {
+          name: `description`,
+          content: meta.description,
+        },
+        {
+          property: `og:title`,
+          content: meta.title,
+        },
+        {
+          property: `og:description`,
+          content: meta.description,
+        },
+        {
+          property: `og:type`,
+          content: `website`,
+        },
+        {
+          name: `twitter:card`,
+          content: `summary`,
+        },
+        {
+          name: `twitter:creator`,
+          content: meta.author,
+        },
+        {
+          name: `twitter:title`,
+          content: meta.title,
+        },
+        {
+          name: `twitter:description`,
+          content: meta.description,
+        },
+      ].concat(meta)}
+    />
+    <Hero>
+      <>{RichText.render(home.hero_title)}</>
+      <a
+        href={home.hero_button_link.url}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <Button>{RichText.render(home.hero_button_text)}</Button>
+      </a>
+    </Hero>
+    <Section>
+      {projects.map((project, i) => (
+        <ProjectCard
+          key={i}
+          category={project.node.project_category}
+          title={project.node.project_title}
+          description={project.node.project_preview_description}
+          thumbnail={project.node.project_preview_thumbnail}
+          uid={project.node._meta.uid}
+        />
+      ))}
+      <WorkAction to={"/work"}>
+        See more work <span>&#8594;</span>
+      </WorkAction>
+    </Section>
+    <Section>
+      {RichText.render(home.about_title)}
+      <About bio={home.about_bio} socialLinks={home.about_links} />
+    </Section>
+  </>
+)
+
+export default ({ data }) => {
+    //Required check for no data being returned
+    const doc = data.prismic.allHomepages.edges.slice(0, 1).pop();
+    const posts = data.prismic.allPosts.edges
+    const projects = data.prismic.allProjects.edges;
+    const meta = data.site.siteMetadata;
+
+    if (!doc || !projects || !posts) return null;
+
+    return (
+        <Layout>
+            <RenderBody home={doc.node} posts={posts} projects={projects} meta={meta}/>
+        </Layout>
+    )
 }
 
-export default IndexPage
+RenderBody.propTypes = {
+  home: PropTypes.object.isRequired,
+  posts: PropTypes.array.isRequired,
+  projects: PropTypes.array.isRequired,
+  meta: PropTypes.object.isRequired,
+}
+
+export const query = graphql`
+         {
+           prismic {
+             allHomepages {
+               edges {
+                 node {
+                   hero_title
+                   hero_button_text
+                   hero_button_link {
+                     ... on PRISMIC__ExternalLink {
+                       _linkType
+                       url
+                     }
+                   }
+                   content
+                   about_title
+                   about_bio
+                   about_links {
+                     about_link
+                   }
+                 }
+               }
+             }
+             allPosts(sortBy: post_date_DESC) {
+               edges {
+                 node {
+                   post_title
+                   post_date
+                   post_category
+                   post_preview_description
+                   post_hero_image
+                   post_author
+                   _meta {
+                     uid
+                   }
+                 }
+               }
+             }
+             allProjects {
+               edges {
+                 node {
+                   project_title
+                   project_preview_description
+                   project_preview_thumbnail
+                   project_category
+                   project_post_date
+                   _meta {
+                     uid
+                   }
+                 }
+               }
+             }
+           }
+           site {
+             siteMetadata {
+               title
+               description
+               author
+             }
+           }
+         }
+       `
