@@ -67,6 +67,7 @@ const Blog = ({ posts, meta }) => (
             date={post.node.post_date}
             thumbnail={post.node.post_hero_image}
             description={post.node.post_preview_description}
+            body={post.node.post_body}
             uid={post.node._meta.uid}
           />
         ))}
@@ -102,6 +103,7 @@ export const query = graphql`
                    post_category
                    post_hero_image
                    post_preview_description
+                   post_body
                    post_author
                    _meta {
                      uid

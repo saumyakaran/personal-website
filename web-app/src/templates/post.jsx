@@ -95,6 +95,13 @@ const PostDate = styled("div")`
 `
 
 const Post = ({ post, meta }) => {
+  const words = RichText.asText(post.post_body).split(" ").length;
+  const avgWPM = 225;
+  let timeToRead = 0;
+  timeToRead = Math.round(words / avgWPM);
+  if (timeToRead === 0) {
+    timeToRead = 1
+  }
     return (
       <>
         <Helmet
@@ -142,6 +149,7 @@ const Post = ({ post, meta }) => {
             <PostAuthor>{post.post_author}</PostAuthor>
             <PostDate>
               <Moment format="MMMM D, YYYY">{post.post_date}</Moment>
+              &nbsp;&nbsp;•&nbsp; {timeToRead} min read
             </PostDate>
           </PostMetas>
           {post.post_hero_image && (
@@ -153,13 +161,14 @@ const Post = ({ post, meta }) => {
             </PostHeroContainer>
           )}
           <PostBody>{RichText.render(post.post_body)}</PostBody>
+
           <DiscussionEmbed
-            shortname='saumyakaran'
+            shortname="saumyakaran"
             config={{
-                  url: post.post_url,
-                  identifier: post.post_uid,
-                  title: post.post_title[0].text,
-              }}
+              url: post.post_url,
+              identifier: post.post_uid,
+              title: post.post_title[0].text,
+            }}
           />
         </Layout>
       </>
@@ -180,32 +189,32 @@ Post.propTypes = {
 };
 
 export const query = graphql`
-    query PostQuery($uid: String) {
-        prismic {
-            allPosts(uid: $uid) {
-                edges {
-                    node {
-                        post_title
-                        post_hero_image
-                        post_hero_annotation
-                        post_date
-                        post_category
-                        post_body
-                        post_author
-                        post_preview_description
-                        _meta {
-                            uid
-                        }
-                    }
-                }
-            }
-        }
-        site {
-            siteMetadata {
-                title
-                description
-                author
-            }
-        }
-    }
-`
+         query PostQuery($uid: String) {
+           prismic {
+             allPosts(uid: $uid) {
+               edges {
+                 node {
+                   post_title
+                   post_hero_image
+                   post_hero_annotation
+                   post_date
+                   post_category
+                   post_body
+                   post_author
+                   post_preview_description
+                   _meta {
+                     uid
+                   }
+                 }
+               }
+             }
+           }
+           site {
+             siteMetadata {
+               title
+               description
+               author
+             }
+           }
+         }
+       `
