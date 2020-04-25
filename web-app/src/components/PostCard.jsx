@@ -101,43 +101,54 @@ const PostCard = ({
   date,
   title,
   description,
+  body,
   uid,
   thumbnail,
-}) => (
-  <PostCardWrapper>
-    <PostCardContainer
-      className="BlogPostCard"
-      to={`/blog/${uid}`}
-      style={{
-        background: `url("${thumbnail.url}")`,
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-        minHeight: "396px",
-      }}
-    />
-    <PostContentContainer>
-      <PostCategory>{category[0].text}</PostCategory>
-      <Link
+}) => {
+  const words = RichText.asText(body).split(" ").length
+  const avgWPM = 225
+  let timeToRead = 0
+  timeToRead = Math.round(words / avgWPM)
+  if (timeToRead === 0) {
+    timeToRead = 1
+  }
+  return (
+    <PostCardWrapper>
+      <PostCardContainer
+        className="BlogPostCard"
         to={`/blog/${uid}`}
-        style={{ color: "inherit", textDecoration: "none" }}
-      >
-        <PostTitle>{title[0].text}</PostTitle>
-        <PostDescription>{RichText.render(description)}</PostDescription>
-      </Link>
-      <PostCardAction className="PostCardAction" to={`/blog/${uid}`}>
-        Read more <span>&#8594;</span>
-      </PostCardAction>
-      <PostMetas>
-        <PostAuthor>{author}</PostAuthor>
-        <PostDate>
-          <Moment format="MMMM D, YYYY">{date}</Moment>
-        </PostDate>
-      </PostMetas>
-    </PostContentContainer>
-    <hr width="100%" style={{ marginBottom: "3rem" }} />
-  </PostCardWrapper>
-)
+        style={{
+          background: `url("${thumbnail.url}")`,
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          minHeight: "396px",
+        }}
+      />
+      <PostContentContainer>
+        <PostCategory>{category[0].text}</PostCategory>
+        <Link
+          to={`/blog/${uid}`}
+          style={{ color: "inherit", textDecoration: "none" }}
+        >
+          <PostTitle>{title[0].text}</PostTitle>
+          <PostDescription>{RichText.render(description)}</PostDescription>
+        </Link>
+        <PostCardAction className="PostCardAction" to={`/blog/${uid}`}>
+          Read more <span>&#8594;</span>
+        </PostCardAction>
+        <PostMetas>
+          <PostAuthor>{author}</PostAuthor>
+          <PostDate>
+            <Moment format="MMMM D, YYYY">{date}</Moment>
+            &nbsp;&nbsp;•&nbsp; {timeToRead} min read
+          </PostDate>
+        </PostMetas>
+      </PostContentContainer>
+      <hr width="100%" style={{ marginBottom: "3rem" }} />
+    </PostCardWrapper>
+  )
+}
 
 export default PostCard
 
