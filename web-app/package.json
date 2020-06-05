@@ -1,9 +1,9 @@
 {
-  "name": "gatsby-prismic-starter-prist",
+  "name": "saumya-karan-website",
   "private": true,
-  "description": "A starter powered by Gatsby and Prismic to showcase portfolios and blogs.",
+  "description": "An evolving collection of my thoughts and beliefs.",
   "version": "0.1.0",
-  "author": "Marguerite Roth | marguerite.io | marguerite.roth@gmail.com",
+  "author": "Saumya Karan | saumyakaran.com | contact@saumyakaran.com",
   "dependencies": {
     "@emotion/core": "^10.0.10",
     "@emotion/styled": "^10.0.12",
@@ -22,7 +22,7 @@
     "gatsby-source-filesystem": "^2.1.26",
     "gatsby-source-prismic-graphql": "3.4.0-beta.1",
     "gatsby-transformer-sharp": "^2.2.16",
-    "node-sass": "^4.12.0",
+    "node-sass": "^4.14.1",
     "prismic-reactjs": "^1.1.1",
     "prop-types": "^15.7.2",
     "react": "^16.9.0",
@@ -42,6 +42,9 @@
     "prettier": "^1.18.2"
   },
   "keywords": [
+    "saumya",
+    "karan",
+    "saumya karan",
     "gatsby",
     "prismic",
     "blog",
